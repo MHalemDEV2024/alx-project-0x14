@@ -1,4 +1,4 @@
-# 🎬 CineSeek  
+# 🎬 ALX Project 0x14 - MoviesDatabase API Integration
 
 CineSeek is a modern **movie discovery application** built with **Next.js, TypeScript, and Tailwind CSS**.  
 It integrates with the **MoviesDatabase API** to allow users to:  
@@ -102,17 +102,88 @@ alx-movie-app/
 
 ---
 
-## 🌐 API Integration  
+## 📖 API Overview
+The **MoviesDatabase API** provides access to a large collection of movie data.  
+Key features include:  
+- Browsing and searching movies  
+- Filtering by year, genre, or title  
+- Pagination support for large results  
+- Access to detailed movie information (title, release year, rating, cast, etc.)  
 
-The application uses the **MoviesDatabase API** with key endpoints:  
-- **`/titles`** → Fetch movie data  
-  - Supports **filtering** by year and genre  
-  - Implements **pagination**  
+---
 
-### Authentication
-- API key via **headers**  
-- Stored in `.env.local` (environment variable)  
-- Server-side API routes prevent key exposure  
+## 🔢 API Version
+**Version:** `v1`  
+
+---
+
+## 📌 Available Endpoints
+- **`/titles`** → Main endpoint for fetching movie data  
+  - Supports search, filtering, and pagination  
+- **`/titles/:id`** → Retrieve detailed information about a single movie by ID  
+- **`/genres`** → Get a list of movie genres  
+- **`/years`** → Fetch available release years  
+- **`/search`** → Search for movies by keywords  
+
+---
+
+## 📤 Request and Response Format
+
+### Example Request  
+```http
+GET https://moviesdatabase.p.rapidapi.com/titles?year=2023&genre=Action
+Headers:
+  X-RapidAPI-Key: YOUR_API_KEY
+  X-RapidAPI-Host: moviesdatabase.p.rapidapi.com
+```
+```json
+{
+  "page": 1,
+  "results": [
+    {
+      "id": "tt1234567",
+      "titleText": "Example Movie",
+      "releaseYear": { "year": 2023 },
+      "genres": { "genres": [{ "text": "Action" }] }
+    }
+  ]
+}
+```
+---
+## 🔑 Authentication
+Authentication is done using an **API key**.  
+
+You must include it in the request headers:  
+X-RapidAPI-Key: YOUR_API_KEY
+X-RapidAPI-Host: moviesdatabase.p.rapidapi.com
+
+
+For security:  
+- Store your API key in environment variables (`.env.local`)  
+- Never commit your key to version control  
+
+---
+
+## ⚠️ Error Handling
+Common error responses include:  
+- **400 Bad Request** → Invalid query parameters  
+- **401 Unauthorized** → Missing or invalid API key  
+- **403 Forbidden** → Exceeded request limits or unauthorized access  
+- **500 Server Error** → Issue on the API provider side  
+
+### Best Practices
+- Wrap API calls in **try/catch blocks**  
+- Show **loading** and **error states** in the UI  
+- Implement **retry logic** or fallback UI for failed requests  
+
+---
+
+## 📊 Usage Limits and Best Practices
+- **Rate Limits** → The API enforces request limits (depending on your plan)  
+- **Pagination** → Use the `page` parameter instead of fetching all results at once  
+- **Caching** → Cache frequent requests to reduce API usage  
+- **Secure Keys** → Keep your API keys private and use **server-side routes** to protect them  
+
 
 ---
 
