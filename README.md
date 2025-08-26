@@ -156,4 +156,3 @@ The application uses the **MoviesDatabase API** with key endpoints:
 
 5. Open http://localhost:3000 🚀
 
-## 📂 File Structure
